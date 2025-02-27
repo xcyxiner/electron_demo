@@ -1,0 +1,40 @@
+{
+    "version": "0.2.0",
+    "compounds": [
+      {
+        "name": "Debug Main & Renderer",
+        "configurations": ["Main", "Renderer"],
+        "preLaunchTask": "npm: dev:wait",  // 先启动webpack-dev-server
+        "stopAll": true
+      }
+    ],
+    "configurations": [
+      {
+        "name": "Renderer",
+        "type": "chrome",
+        "request": "attach",
+        "port": 9222,
+        "webRoot": "${workspaceFolder}/src/renderer",  // 指向源码目录
+        "urlFilter": "http://localhost:3000/*"         // 匹配Webpack服务地址
+      },
+      {
+        "name": "Main",
+        "type": "node",
+        "request": "launch",
+        "cwd": "${workspaceFolder}",
+        "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+        "windows": {
+          "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
+        },
+        "args": [
+          ".", 
+          "--remote-debugging-port=9222"  // 必须保留调试端口
+        ],
+        "console": "integratedTerminal",
+        "outputCapture": "std",
+        "env": {
+          "NODE_ENV": "development"  // 直接注入环境变量
+        }
+      }
+    ]
+  }

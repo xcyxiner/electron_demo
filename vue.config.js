@@ -20,7 +20,9 @@ module.exports = {
 
   // 开发服务器配置（用于热重载）
   devServer: {
-    port: 8080,
+    port: 3000,          // 开发服务器运行在 3000 端口
+    hot: true,
+    open: false,
     headers: {
       'Access-Control-Allow-Origin': '*'
     }

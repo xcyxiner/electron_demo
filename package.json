@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "https://github.com/vuejs/create-vue\r https://github.com/alex8088/electron-vite",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "start": "concurrently \"npm run serve\" \"wait-on http://localhost:8080 && electron .\"",
-    "vbuild": "vue-cli-service build",
-    "build": "npm run vbuild && electron-builder build",
+    "dev": "vue-cli-service serve",
+    "dev:wait": "wait-port 3000",
+    "build": "vue-cli-service build",
+    "electron:build": "npm run vbuild && electron-builder build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "main": "src/main/index.js",
@@ -45,6 +45,7 @@
     "electron-builder": "^25.1.8",
     "electron-reloader": "^1.2.3",
     "nodemon": "^3.1.9",
+    "wait-port": "^1.1.0",
     "worker-loader": "^3.0.8"
   }
 }

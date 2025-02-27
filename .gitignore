@@ -25,7 +25,7 @@ node_modules/
 
 # IDE和编辑器
 .idea/
-.vscode/
+# .vscode/
 *.suo
 *.ntvs*
 *.njsproj

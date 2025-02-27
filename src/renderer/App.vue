@@ -1,8 +1,6 @@
 <template>
   <div>
-    <h1>Electron + Vue 3</h1>
-    <button @click="sendMessageV2">Send Message to Main Process</button>
-    <p>Reply from Main: {{ reply }}</p>
+    <button @click="sendMessageV2">测试Webgl</button>
   </div>
 </template>
 
@@ -15,10 +13,7 @@ export default {
     };
   },
   mounted() {
-    // 监听主进程回复
-    // window.electronAPI.receiveFromMain((message) => {
-    //   this.reply = message;
-    // });
+
   },
   methods: {
     sendMessageV2() {
@@ -28,7 +23,6 @@ export default {
     initDemo(){
       // 在渲染进程初始化
 const stlRenderer = new STLRenderer()
-debugger;
 // 加载模型
 stlRenderer.loadModel('1.STL').catch(err => {
   console.error('加载失败:', err)
