@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "npm: dev:wait",
+        "type": "npm",
+        "script": "dev:wait",
+        "problemMatcher": [],       // 禁用问题匹配
+        "presentation": {
+          "reveal": "silent",       // 不自动展示终端
+          "close": true             // 任务完成后关闭终端
+        }
+      }
+    ]
+  }

@@ -1,26 +1,59 @@
+# 通用忽略规则
 .DS_Store
-node_modules
-/dist
-
-
-# local env files
-.env.local
-.env.*.local
-
-# Log files
+*.log
+*.pid
+*.seed
+*.pid.lock
+*.tgz
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
+Thumbs.db
 
-# Editor directories and files
-.idea
-.vscode
+# 依赖目录
+node_modules/
+/dist/           # Vue 构建输出目录
+/release/        # Electron 打包输出目录
+/.electron/      # Electron 构建缓存
+dist
+
+# 环境文件
+.env.local
+.env.*.local
+.env
+.env.production
+.env.development
+
+# IDE和编辑器
+.idea/
+# .vscode/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
 
-#Electron-builder output
-/dist_electron
+# 调试文件
+debug/
+*.exe
+*.pdb
+*.idb
+*.ilk
+*.obj
+*.db
+*.opendb
+
+# 测试相关
+/coverage/
+/.nyc_output/
+
+# 系统文件
+*.sys
+*.dll
+*.bak
+*.tmp
+
+# 特殊文件
+.jenkins/
+.cache/
+.temp/
