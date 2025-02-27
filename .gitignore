@@ -15,6 +15,7 @@ node_modules/
 /dist/           # Vue 构建输出目录
 /release/        # Electron 打包输出目录
 /.electron/      # Electron 构建缓存
+dist
 
 # 环境文件
 .env.local

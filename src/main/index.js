@@ -42,6 +42,25 @@ app.on('activate', () => {
 
 ipcMain.handle('get-stl-path', (_, filename) => {
   return process.env.NODE_ENV === 'development'
-    ? path.join(__dirname, '../../public/models', filename)
+    ? path.join('/models', filename)
     : path.join(process.resourcesPath, 'resources/models', filename)
 })
+
+const isDevelopment = process.env.NODE_ENV !== 'production';
+
+function getWorkerPath() {
+  return isDevelopment
+    ? path.join(__dirname, 'src/renderer/worker/stlLoader.worker.js') // 开发环境直接指向源码
+    : path.join(__dirname, 'dist/stlLoader.worker.js'); // 生产环境指向打包文件
+}
+
+// 暴露路径给渲染进程
+ipcMain.handle('get-worker-path', () => getWorkerPath());
+
+// 主进程代码（开发环境专用）
+if (isDevelopment) {
+  require('electron-reloader')(module, {
+    debug: true,
+    watchRenderer: true
+  });
+}

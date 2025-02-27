@@ -1,12 +1,14 @@
 const path = require('path');
+const isProduction = process.env.NODE_ENV === 'production';
+
 
 module.exports = {
   // 静态资源路径
-  publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
-  
+  publicPath: isProduction ? './' : '/',
+
   // 构建输出目录
   outputDir: path.resolve(__dirname, 'dist'),
-  
+
   configureWebpack: {
     // 入口文件指向 Vue 渲染进程
     entry: './src/renderer/main.js',
@@ -25,7 +27,7 @@ module.exports = {
     open: false,
     headers: {
       'Access-Control-Allow-Origin': '*'
-    }
+    },
   },
 
   // 链式配置 Electron 主进程
@@ -35,15 +37,5 @@ module.exports = {
       .test(/\.node$/)
       .use('node-loader')
       .loader('node-loader');
-
-      config.module
-      .rule('worker')
-      .test(/\.worker\.js$/)
-      .use('worker-loader')
-      .loader('worker-loader')
-      .options({ 
-        inline: 'fallback',
-        filename: 'renderer/worker/[name].[hash].worker.js'
-      })
-  }
+  },
 };
