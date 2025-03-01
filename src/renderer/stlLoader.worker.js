@@ -12,6 +12,13 @@ self.onmessage = async (e) => {
     const vertices = geometry.attributes.position.array
     const normals = geometry.attributes.normal?.array || []
     
+    const scaleFactor = 0.005;
+    for (let i = 0; i < vertices.length; i += 3) {
+      vertices[i] *= scaleFactor;     // x
+      vertices[i + 1] *= scaleFactor; // y
+      vertices[i + 2] *= scaleFactor; // z
+    }
+        
     self.postMessage({
       vertices: vertices.buffer,
       normals: normals.buffer

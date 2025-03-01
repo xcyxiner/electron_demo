@@ -1,18 +1,28 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/Addons.js'
+import { HightMeshBasicMaterial } from './hightMeshBasicMaterial'
 export class STLRenderer {
   constructor() {
-    this.initScene()
     this.setupWorker()
   }
 
-  initScene() {
+  initScene(domElement) {
     this.scene = new THREE.Scene()
     this.camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000)
-    this.renderer = new THREE.WebGLRenderer({ antialias: true })
+    this.renderer = new THREE.WebGLRenderer({ antialias: true})
+
+    // 添加地面网格（尺寸10x10，细分10等分）
+    const gridSize = 100;
+    const gridDivisions = 100;
+    const gridHelper = new THREE.GridHelper(gridSize, gridDivisions, 0x444444, 0x888888);
+    this.scene.add(gridHelper);
+
+    // 添加三维坐标轴辅助器（长度5单位）
+    const axesHelper = new THREE.AxesHelper(50);
+    this.scene.add(axesHelper);
     
     this.renderer.setSize(window.innerWidth, window.innerHeight)
-    document.body.appendChild(this.renderer.domElement)
+    domElement.appendChild(this.renderer.domElement)
     
     // 添加基础光源
     const ambientLight = new THREE.AmbientLight(0x404040)
@@ -39,7 +49,6 @@ export class STLRenderer {
   ))
     
     this.worker.onmessage = (e) => {
-      console.log(e.data,"this.worker")
       if (e.data.error) {
         console.error('Worker Error:', e.data.error)
         return
@@ -57,12 +66,26 @@ export class STLRenderer {
       } else {
         geometry.computeVertexNormals() // 自动计算法线
       }
-      
-      
-      this.mesh = new THREE.Mesh(geometry)
-      this.mesh.scale.set(0.005, 0.005, 0.005)
+      this.mesh = new THREE.Mesh(geometry,new THREE.MeshPhongMaterial(
+        {
+          color: 0xffffff,
+          specular: 0xffffff,
+          shininess: 100
+        }
+      ))
       this.scene.add(this.mesh)
       this.animate()
+    }
+  }
+  startCut() {
+    if (this.mesh) {
+      this.mesh.material = new HightMeshBasicMaterial(
+        {
+          color: 0xffffff,
+          specular: 0xffffff,
+          shininess: 100
+        }
+      )
     }
   }
 
