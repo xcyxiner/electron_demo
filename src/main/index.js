@@ -1,6 +1,6 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, session } = require('electron');
 const path = require('path');
-
+let fs = require('fs');
 let mainWindow;
 
 function createWindow() {
@@ -10,6 +10,8 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: false,          // 禁用 Node.js 在渲染进程
       contextIsolation: true,          // 启用上下文隔离
+      sandbox: true,
+      webSecurity: true,
       preload: path.join(__dirname, 'preload.js')
     }
   });
@@ -25,6 +27,8 @@ function createWindow() {
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
+
+  // verifyWorkers()
 }
 
 app.whenReady().then(createWindow);
@@ -41,21 +45,14 @@ app.on('activate', () => {
 });
 
 ipcMain.handle('get-stl-path', (_, filename) => {
+  const isDev = !app.isPackaged;
   return process.env.NODE_ENV === 'development'
     ? path.join('/models', filename)
-    : path.join(process.resourcesPath, 'resources/models', filename)
+    : isDev ? path.join(__dirname, '../../dist/models', filename) : path.join(process.resourcesPath, 'resources/models', filename)
 })
 
-const isDevelopment = process.env.NODE_ENV !== 'production';
+const isDevelopment = process.env.NODE_ENV === 'development';
 
-function getWorkerPath() {
-  return isDevelopment
-    ? path.join(__dirname, 'src/renderer/worker/stlLoader.worker.js') // 开发环境直接指向源码
-    : path.join(__dirname, 'dist/stlLoader.worker.js'); // 生产环境指向打包文件
-}
-
-// 暴露路径给渲染进程
-ipcMain.handle('get-worker-path', () => getWorkerPath());
 
 // 主进程代码（开发环境专用）
 if (isDevelopment) {

@@ -6,7 +6,7 @@
     "dev": "vue-cli-service serve",
     "dev:wait": "wait-port 3000",
     "build": "vue-cli-service build",
-    "electron:build": "npm run vbuild && electron-builder build",
+    "electron:build": "npm run build && electron-builder build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "main": "src/main/index.js",
@@ -21,7 +21,11 @@
         "from": "src/resources/models",
         "to": "resources/models"
       }
-    ]
+    ],
+    "asarUnpack": [],
+    "extraMetadata": {
+      "csp": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:"
+    }
   },
   "repository": {
     "type": "git",

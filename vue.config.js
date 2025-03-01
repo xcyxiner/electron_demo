@@ -1,7 +1,6 @@
 const path = require('path');
 const isProduction = process.env.NODE_ENV === 'production';
 
-
 module.exports = {
   // 静态资源路径
   publicPath: isProduction ? './' : '/',
@@ -17,7 +16,14 @@ module.exports = {
       alias: {
         '@': path.resolve(__dirname, 'src/renderer')
       }
-    }
+    },
+    plugins: [
+      new (require("webpack")).DefinePlugin({
+        __VUE_OPTIONS_API__: JSON.stringify(true),
+        __VUE_PROD_DEVTOOLS__: JSON.stringify(false),
+        __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: JSON.stringify(false), // 解决报错
+      }),
+    ],
   },
 
   // 开发服务器配置（用于热重载）
