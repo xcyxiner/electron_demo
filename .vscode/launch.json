@@ -6,6 +6,12 @@
         "configurations": ["Main", "Renderer"],
         "preLaunchTask": "npm: dev:wait",  // 先启动webpack-dev-server
         "stopAll": true
+      },
+      {
+        "name": "Release MainProd",
+        "configurations": ["MainProd"],
+        "preLaunchTask": "npm: build",  // 先启动webpack-dev-server
+        "stopAll": true
       }
     ],
     "configurations": [
@@ -35,6 +41,22 @@
         "env": {
           "NODE_ENV": "development"  // 直接注入环境变量
         }
+      },
+      {
+        "name": "MainProd",
+        "type": "node",
+        "request": "launch",
+        "cwd": "${workspaceFolder}",
+        "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+        "windows": {
+          "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
+        },
+        "args": [
+          ".", 
+          "--remote-debugging-port=9222"  // 必须保留调试端口
+        ],
+        "console": "integratedTerminal",
+        "outputCapture": "std",
       }
     ]
   }

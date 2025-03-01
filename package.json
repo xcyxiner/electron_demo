@@ -6,7 +6,7 @@
     "dev": "vue-cli-service serve",
     "dev:wait": "wait-port 3000",
     "build": "vue-cli-service build",
-    "electron:build": "npm run vbuild && electron-builder build",
+    "electron:build": "npm run build && electron-builder build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "main": "src/main/index.js",

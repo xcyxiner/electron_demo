@@ -4,7 +4,6 @@ const { contextBridge, ipcRenderer } = require('electron');
 contextBridge.exposeInMainWorld('electronAPI', {
    getEnv: () => process.env.NODE_ENV,
    getSTLPath: (filename) => ipcRenderer.invoke('get-stl-path', filename),
-   getWorker: (filename) => ipcRenderer.invoke('get-worker', filename),
 });
 
 window.addEventListener("DOMContentLoaded", () => {

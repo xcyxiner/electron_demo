@@ -26,7 +26,7 @@ export class STLRenderer {
       this.camera.aspect = window.innerWidth / window.innerHeight;
       this.camera.updateProjectionMatrix();
       this.renderer.setSize(window.innerWidth, window.innerHeight);
-      this.controls.handleResize();  // 更新控制器尺寸
+      // this.controls.handleResize();  // 更新控制器尺寸
     });
     this.controls.update();  // 首次更新控制器
     this.camera.position.z = 100
