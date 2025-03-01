@@ -26,10 +26,25 @@ vue create electron_demo
 vue add electron-builder
 ```
 
-## 调试以及运行
+## dev调试以及运行
 
 ```
 npm run dev
 ```
+加载网页
 
 执行调试 Debug Main & Renderer
+
+
+## 生成调试
+
+加载文件
+执行调试 Release MainProd
+
+## 打包部署
+
+加载文件
+
+```
+npm run electron:build
+```
