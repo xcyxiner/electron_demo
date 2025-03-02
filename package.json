@@ -39,6 +39,7 @@
   },
   "homepage": "https://github.com/xcyxiner/electron_demo#readme",
   "dependencies": {
+    "element-plus": "^2.9.5",
     "three": "^0.173.0",
     "vue": "^3.5.13"
   },

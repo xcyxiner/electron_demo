@@ -11,7 +11,7 @@ self.onmessage = async (e) => {
     // 转换为可传输格式
     const vertices = geometry.attributes.position.array
     const normals = geometry.attributes.normal?.array || []
-    
+        
     self.postMessage({
       vertices: vertices.buffer,
       normals: normals.buffer
