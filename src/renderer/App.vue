@@ -2,7 +2,10 @@
   <div>
     <el-row type="flex" class="row-bg">
         <el-button @click="initDemo">加载STL</el-button>
-        <el-button @click="startCut">水平切割</el-button>
+        <el-button @click="startCut">水平切片</el-button>
+      </el-row>
+      <el-row type="flex" class="row-bg">
+        <el-slider v-model="cutRange" range show-stops :min="1" :max="cutMax" @input="cutRangeChange"  />
       </el-row>
       <el-row type="flex" class="row-bg" style="margin-top: 10px;">
         <div ref="stlContainer" id="stl-container">
@@ -16,20 +19,39 @@ import {STLRenderer} from './threeScene';
 export default {
   data() {
     return {
-      reply: ''
+      cutRange: [1,1],
+      cutMax:10,
+      cutPerHigh:0.2
     };
   },
   mounted() {
     this.initDemo()
   },
   methods: {
+    cutRangeChange(value){
+      let min=value[0]
+      let max=value[1]
+      if(min===max){
+        min=max-1
+      }
+      let stlRenderer=window.stlRenderer
+      if(stlRenderer){
+        stlRenderer.refreshLayerRange({min,max})
+      }
+    },
     startCut(){
       let stlRenderer=window.stlRenderer
       if(!stlRenderer){
        this.$message.warning('请先加载模型')
         return
       }
-      stlRenderer.startCut()
+      this.cutMax=stlRenderer.calcTotalNumber(this.cutPerHigh)
+      this.cutRange=[1,this.cutMax]
+
+      stlRenderer.startCut({
+        layer_count: this.cutMax,
+        heightStep: this.cutPerHigh
+      })
     },
     initDemo(){
       let stlRenderer=window.stlRenderer

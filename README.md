@@ -54,5 +54,7 @@ Flexible Cat
 https://www.thingiverse.com/thing:6932835/files
 
 ## 使用cura
+https://github.com/Ultimaker/Cura/releases/tag/5.9.1
+
 https://www.youtube.com/watch?v=1pDyQYMrdr8
 

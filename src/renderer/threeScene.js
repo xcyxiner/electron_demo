@@ -101,15 +101,29 @@ export class STLRenderer {
       this.animate()
     }
   }
-  startCut() {
+  calcTotalNumber(cutPerHigh){
+   let allHight= this.mesh.geometry.boundingBox.max.y
+   return Math.ceil(allHight/cutPerHigh)
+  }
+  isCutFlag=false
+  startCut(initParam) {
     if (this.mesh) {
-      this.mesh.material = new HightMeshBasicMaterial(
+     let material = new HightMeshBasicMaterial(
         {
           color: 0xffffff,
           specular: 0xffffff,
           shininess: 100
         }
       )
+      initParam.maxHeight=this.mesh.geometry.boundingBox.max.y
+      material.initParam(initParam)
+      this.mesh.material = material
+      this.isCutFlag=true
+    }
+  }
+  refreshLayerRange(data){
+    if(this.isCutFlag){
+      this.mesh.material.refreshLayerRange(data)
     }
   }
 
