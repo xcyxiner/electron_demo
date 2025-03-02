@@ -48,3 +48,11 @@ npm run dev
 ```
 npm run electron:build
 ```
+
+## 更换模型 STL
+Flexible Cat
+https://www.thingiverse.com/thing:6932835/files
+
+## 使用cura
+https://www.youtube.com/watch?v=1pDyQYMrdr8
+

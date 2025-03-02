@@ -73,6 +73,30 @@ export class STLRenderer {
           shininess: 100
         }
       ))
+
+      geometry.rotateX(-Math.PI / 2); // 绕X轴旋转-90度
+      // 将模型居中
+      geometry.computeBoundingBox();
+
+
+      // 对齐最低点到Y=0
+      const box = geometry.boundingBox;
+      const offsetY = -box.min.y;
+      geometry.translate(0, offsetY, 0);
+
+      // XZ平面居中（可选）
+      geometry.computeBoundingBox();
+      const newBox = geometry.boundingBox;
+      const centerXZ = new THREE.Vector3();
+      newBox.getCenter(centerXZ);
+      centerXZ.y = 0;
+      geometry.translate(-centerXZ.x, 0, -centerXZ.z);
+
+      // 重新计算法线和包围盒
+      geometry.computeVertexNormals();
+      geometry.computeBoundingBox();
+
+
       this.scene.add(this.mesh)
       this.animate()
     }
